@@ -2,8 +2,15 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
+function toogleLesson(module, lesson) {
+  return {
+    type: 'TOGGLE_LESSON',
+    module,
+    lesson,
+  };
+}
 
-const Sidebar = ({modules}) => (
+const Sidebar = ({ modules, dispatch }) => (
   <aside>
     {
       modules.map( module => (
@@ -11,7 +18,10 @@ const Sidebar = ({modules}) => (
           <strong>{module.title}</strong>
           <ul>
             {module.lessons.map(lesson => (
-              <li key={lesson.id}>{lesson.title}</li>  
+              <li key={lesson.id}>
+                {lesson.title}
+                <button onClick={() => dispatch(toogleLesson(module, lesson))}>Selecionar</button>
+              </li>  
             ))}
           </ul>
         </div>
